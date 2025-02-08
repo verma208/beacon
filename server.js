@@ -5,10 +5,18 @@ const port = process.env.PORT || 3001;
 
 let beaconOn = false;
 
+let object = { message: 'Hello from the server!',
+    red: 0,
+    green: 0,
+    blue: 0}
+
+
 app.get('/beacon', (request, response) => {
     response.json({ message: 'Hello from the server!',
                         beaconOn: beaconOn });
 });
+
+
 
 app.listen(port, () => {
     console.log(`Server listening on port ${port}`);
