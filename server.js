@@ -12,8 +12,7 @@ let object = { message: 'Hello from the server!',
 
 
 app.get('/beacon', (request, response) => {
-    response.json({ message: 'Hello from the server!',
-                        beaconOn: beaconOn });
+    response.json( object );
 });
 
 
