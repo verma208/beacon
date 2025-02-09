@@ -38,6 +38,20 @@ app.get('/beacon', (request, response) => {
     response.json( object );
 });
 
+app.post('/beacon/message', (request, response) => {
+    const receivedObject = request.body; // Get JSON object from the request body
+
+    if (!receivedObject || Object.keys(receivedObject).length === 0) {
+        return response.status(400).json({ error: "Invalid or empty JSON object received." });
+    }
+    console.log(receivedObject);
+    object["message"] = receivedObject["message"];
+
+    response.json({
+        message: "JSON object received successfully.",
+        receivedObject
+    });
+});
 
 
 app.listen(port, () => {
