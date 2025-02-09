@@ -4,8 +4,8 @@ const port = process.env.PORT || 3001;
 
 let object = {}
 
-function setBeacon(message, increment){
-    object[message] = message
+function setBeacon(bulletinMessage, increment){
+    object["message"] = bulletinMessage
 
     for(let i = 0; i < increment; i++){
         object["led" + i] = {red: 0, green: 0, blue: 100}
