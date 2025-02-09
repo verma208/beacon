@@ -12,6 +12,8 @@ app.use(express.json()); // Parse JSON bodies
 let object = {};
 let incrementVal = 0;
 let message = ""
+let RGB1 = {red: 0, blue: 0, green: 0}
+let RGB2 = {red: 0, blue: 0, green: 0}
 // Helper function to set the beacon
 function setBeacon(bulletinMessage, increment) {
     let str1 = bulletinMessage.slice(0, 16);
@@ -21,11 +23,11 @@ function setBeacon(bulletinMessage, increment) {
 
 
     for (let i = 0; i < increment; i++) {
-        object["led" + i] = {red: 0, green: 0, blue: 100};
+        object["led" + i] = {red: RGB1.red, green: RGB1.green, blue: RGB1.blue};
     }
 
     for (let i = increment; i < 60; i++) {
-        object["led" + i] = {red: 0, green: 100, blue: 0};
+        object["led" + i] = {red: RGB2.red, green: RGB2.green, blue: RGB2.blue};
     }
 
     object.message = str1 + str3 + str2 + str4
@@ -62,6 +64,20 @@ app.post('/beacon/increment', (req, res) => {
 
     console.log('Received message:', receivedObject["increment"]);
     incrementVal = receivedObject["increment"]
+});
+
+app.post('/beacon/RGB', (req, res) => {
+    const receivedObject = req.body; // Parse JSON object from the request body
+
+
+    res.json({
+        message: "JSON object received successfully.",
+        receivedObject
+    });
+
+    console.log('Received message:', receivedObject["increment"]);
+    RBG1 = receivedObject["first"]
+    RBG1 = receivedObject["second"]
 });
 
 
