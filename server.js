@@ -10,14 +10,14 @@ app.use(express.json()); // Parse JSON bodies
 
 // Global object
 let object = {};
-
+let incrementVal = 0;
 // Helper function to set the beacon
 function setBeacon(bulletinMessage, increment) {
     let str1 = bulletinMessage.slice(0, 16);
     let str2 = bulletinMessage.slice(16, 32);
     let str3 = bulletinMessage.slice(32, 48);
     let str4 = bulletinMessage.slice(48, 64);
-
+    incrementVal = increment;
     object["message"] = str1 + str3 + str2 + str4;
 
     for (let i = 0; i < increment; i++) {
@@ -51,13 +51,15 @@ app.post('/beacon/message', (req, res) => {
         return res.status(400).json({ error: "Invalid or missing 'message' in the request body." });
     }
 
-    console.log('Received message:', receivedObject.message);
-    object["message"] = receivedObject["message"];
+
 
     res.json({
         message: "JSON object received successfully.",
         receivedObject,
     });
+
+    console.log('Received message:', receivedObject.message);
+    setBeacon(receivedObject["message"], incrementVal)
 });
 
 // Start the server
